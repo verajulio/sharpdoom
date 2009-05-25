@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+# SharpDevelop 3.0.0.3800
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpDoom", "SharpDoom\SharpDoom.csproj", "{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|32-bit = Debug|32-bit
+		Release|32-bit = Release|32-bit
+		Debug|64-bit = Debug|64-bit
+		Release|64-bit = Release|64-bit
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}.Debug|32-bit.Build.0 = Debug|32-bit
+		{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}.Debug|32-bit.ActiveCfg = Debug|32-bit
+		{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}.Release|32-bit.Build.0 = Release|Any CPU
+		{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}.Release|32-bit.ActiveCfg = Release|Any CPU
+		{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}.Debug|64-bit.Build.0 = Debug|64-bit
+		{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}.Debug|64-bit.ActiveCfg = Debug|64-bit
+		{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}.Release|64-bit.Build.0 = Release|Any CPU
+		{7D3AAFA9-263E-4CDA-84DC-0A9ACE4BF45B}.Release|64-bit.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+EndGlobal
