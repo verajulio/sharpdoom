@@ -1,11 +1,3 @@
-/*
- * Creato da SharpDevelop.
- * Utente: Mattias Cibien
- * Data: 22/05/2009
- * Ora: 21.58
- * 
- */
-
 //TODO: should be finished
 
 /// <summary>

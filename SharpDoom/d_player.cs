@@ -9,6 +9,7 @@
 /// <summary>
 /// Player states.
 /// </summary>
+using Doomed;
 enum PlayerState
 {
     // Playing or camping.
@@ -33,26 +34,26 @@ enum Cheat
     NOMOMENTUM	= 4
 
 };
-/*
+
 ///
 /// Extended player object info: player_t
 ///
-struct player_s
+struct Player
 {
-    mobj_t*		mo;
-    playerstate_t	playerstate;
-    ticcmd_t		cmd;
+    MapObject	mo;
+    PlayerState	playerstate;
+    //ticcmd_t		cmd;
 
     // Determine POV,
     //  including viewpoint bobbing during movement.
     // Focal origin above r.z
-    fixed_t		viewz;
+    float		viewz;
     // Base height above floor for viewz.
-    fixed_t		viewheight;
+    float		viewheight;
     // Bob/squat speed.
-    fixed_t         	deltaviewheight;
+    float         	deltaviewheight;
     // bounded/scaled total momentum.
-    fixed_t         	bob;	
+    float         	bob;	
 
     // This is only used between levels,
     // mo->health is used during levels.
@@ -60,9 +61,9 @@ struct player_s
     int			armorpoints;
     // Armor type is 0-2.
     int			armortype;	
-
+    /*
     // Power ups. invinc and invis are tic counters.
-    int			powers[NUMPOWERS];
+    int			powers[NUMPOWERS]
     bool		cards[NUMCARDS];
     bool		backpack;
     
@@ -76,7 +77,7 @@ struct player_s
     bool		weaponowned[NUMWEAPONS];
     int			ammo[NUMAMMO];
     int			maxammo[NUMAMMO];
-
+    */
     // True if button down last tic.
     int			attackdown;
     int			usedown;
@@ -94,14 +95,14 @@ struct player_s
     int			secretcount;
 
     // Hint messages.
-    char*		message;	
+    string		message;	
     
     // For screen flashing (red or bright).
     int			damagecount;
     int			bonuscount;
 
     // Who did damage (NULL for floors/ceilings).
-    mobj_t*		attacker;
+    MapObject		attacker;
     
     // So gun flashes light up areas.
     int			extralight;
@@ -115,12 +116,12 @@ struct player_s
     int			colormap;	
 
     // Overlay view sprites (gun, etc).
-    pspdef_t		psprites[NUMPSPRITES];
+    //pspdef_t		psprites[NUMPSPRITES];
 
     // True if secret level has been done.
     bool		didsecret;	
 
-} player_t;
+}
 
 
 //
@@ -129,15 +130,15 @@ struct player_s
 //
 struct WbPlayerStruct
 {
-    bool	in;	// whether the player is in game
+    bool	IiInGame;	// whether the player is in game
     
     // Player stats, kills, collected items etc.
-    int		skills;
-    int		sitems;
-    int		ssecret;
-    int		stime; 
-    int		frags[4];
-    int		score;	// current score on entry, modified on return
+    int		Skills;
+    int		Sitems;
+    int		Ssecret;
+    int		Stime; 
+    int[]	Frags;
+    int		Score;	// current score on entry, modified on return
   
 };
 
@@ -163,8 +164,6 @@ struct WbStartStruct
     // index of this player in game
     int		pnum;	
 
-    WbPlayerStruct	plyr[MAXPLAYERS];
+    //WbPlayerStruct	plyr[MAXPLAYERS];
 
 };
-
-*/

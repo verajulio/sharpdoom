@@ -1,10 +1,3 @@
-/*
- * Creato da SharpDevelop.
- * Utente: Mattias Cibien
- * Data: 22/05/2009
- * Ora: 15.23
- *
- */
 using System;
 using System.Collections;
 using System.IO;
@@ -15,25 +8,45 @@ namespace Doomed
 	/// Main Game Class featuring the way to play the game
 	/// </summary>
 	public class DoomMain
-	{
-		int Vestion 
+    {
+        #region Properties
+        int Version 
 		{
 			get
 			{
-				return 100;
+                return 100;
 			}
 		}
+
+        string Title
+        {
+            get;
+            set;
+        }
+
+        ArrayList Events
+        {
+            get;
+            set;
+        }
+
 		GameMode GameMode
 		{
 			get; set;
 		}
+
+        GameMission GameMission
+        {
+            get;
+            set;
+        }
 		
 		bool DevMode
 		{
 			get; set;
-		}
-		
-		ArrayList files = new ArrayList();
+        }
+        #endregion
+        ArrayList files = new ArrayList();
 		
 		void AddFile(FileInfo file)
 		{
@@ -48,16 +61,44 @@ namespace Doomed
 		public void RunMainLoop(string[] args)
 		{
 			ArgStore.Args = args;
-			Console.Title = "SharpDoom 1.0";
+            Console.WriteLine("Engine Initialized");
 			IdentifyVersion();
-			Console.WriteLine("Hello! I am the main Doom Loop... I do quite nothing now\nexcept for checking the game version and active WAD Files\n\n");
-			object[] array = files.ToArray();
-#if DEBUG
-			foreach(object o in array)
-			{
-				Console.WriteLine(((FileInfo)o).FullName);
-			}
-#endif
+
+            switch ( GameMode )
+            {
+                case GameMode.Retail:
+                    Title = String.Format("The Ultimate DOOM Startup v{0}.{1}", Version/100,Version%100);
+	                break;
+                case GameMode.Shareware:
+                    Title = String.Format("DOOM Shareware Startup v{0}.{1}", Version/100,Version%100);
+	                break;
+                case GameMode.Registered:
+	                Title = String.Format("DOOM Registered Startup v{0}.{1}", Version/100,Version%100);
+	                break;
+                case GameMode.Commercial:
+                    Title = String.Format("DOOM 2: Hell on Earth v{0}.{1}",Version/100,Version%100);
+	                break;
+                default:
+                    Title = String.Format("Public DOOM - v{0}.{1}", Version/100,Version%100);
+	            break;
+            }
+            switch (GameMission)
+            {
+                case GameMission.PackPlut:
+                    Title = String.Format("DOOM 2: Plutonia Experiment v{0}.{1}", Version / 100, Version % 100);
+                    break;
+                case GameMission.PackTnt:
+                    Title = String.Format("DOOM 2: TNT - Evilution v{0}.{1}", Version / 100, Version % 100);
+                    break;
+                default:
+                    //Leave as before ;)
+                    break;
+            }
+
+            Console.Title = String.Concat(Title);
+            Console.WriteLine(String.Concat("\n", Title, "\n"));
+
+            Console.ReadKey(true);
 		}
 		
 		/// <summary>
@@ -124,45 +165,49 @@ namespace Doomed
     		if(doom2wad.Exists)
     		{
     			GameMode = GameMode.Commercial;
+                GameMission = GameMission.Doom2;
     			AddFile(doom2wad);
     			return;
-    		}
-    		
+    		}   		
     		if(plutoniawad.Exists)
     		{
     			GameMode = GameMode.Commercial;
+                GameMission = GameMission.PackPlut;
 				AddFile(plutoniawad);
     			return;
     		}
     		if(tntwad.Exists)
     		{
     			GameMode = GameMode.Commercial;
+                GameMission = GameMission.PackTnt;
 				AddFile(tntwad);
     			return;
     		}
     		if(doomuwad.Exists)
     		{
-    			GameMode = GameMode.Registered;
+    			GameMode = GameMode.Retail;
+                GameMission = GameMission.Doom;
     			AddFile(doomuwad);
     			return;
     		}
-    		
     		if(doomwad.Exists)
     		{
     			GameMode = GameMode.Registered;
+                GameMission = GameMission.Doom;
     			AddFile(doomwad);
     			return;
     		}
-    		
     		if(doom1wad.Exists)
     		{
     			GameMode = GameMode.Shareware;
+                GameMission = GameMission.Doom;
     			AddFile(doom1wad);
     			return;
     		}
     		    		
-    		Console.WriteLine("Game Mode Indeterminate");
+    		Console.WriteLine("Game Mode Indeterminated");
     		GameMode = GameMode.Indetermined;
+            GameMission = GameMission.None;
     		
 		}
 		
@@ -171,9 +216,19 @@ namespace Doomed
 		/// </summary>
 		void PostEvent(Event ev)
 		{
-		
+            Events.Add(ev);
 		}
 
+        void ProcessEvents()
+        {
+            foreach (Event ev in Events)
+            {
+                //ev = &events[eventtail];
+                //if (M_Responder(ev))
+                //   continue;               // menu ate the event
+                //G_Responder(ev);
+            }
+        }
 
 		//
 		// BASE LEVEL
