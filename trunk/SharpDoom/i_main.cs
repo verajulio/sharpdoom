@@ -1,11 +1,4 @@
-﻿/*
- * Creato da SharpDevelop.
- * Utente: Mattias Cibien
- * Data: 22/05/2009
- * Ora: 15.21
- *
- */
-using System;
+﻿using System;
 
 namespace Doomed
 {
@@ -16,8 +9,6 @@ namespace Doomed
 			DoomMain main = new DoomMain();
 			
 			main.RunMainLoop(args);
-			
-			Console.ReadKey(true);
 		}
 	}
 }
