@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 
-namespace Doomed
+namespace SharpDoom
 {
 	/// <summary>
 	/// Main Game Class featuring the way to play the game

@@ -6,12 +6,14 @@
  * 
  */
 
-/// <summary>
-/// Player states.
-/// </summary>
-using Doomed;
-enum PlayerState
+
+namespace SharpDoom
 {
+    /// <summary>
+    /// Player states.
+    /// </summary>
+    enum PlayerState
+    {
     // Playing or camping.
     LIVE,
     // Dead on the ground, view follows killer.
@@ -19,151 +21,159 @@ enum PlayerState
     // Ready to restart/respawn???
     REBORN		
 
-};
+    };
 
 /// <summary>
 /// Player internal flags, for cheats and debug.
 /// </summary>
-enum Cheat
-{
-    // No clipping, walk through barriers.
-    NOCLIP		= 1,
-    // No damage, no health loss.
-    GODMODE		= 2,
-    // Not really a cheat, just a debug aid.
-    NOMOMENTUM	= 4
+    enum Cheat
+    {
+        // No clipping, walk through barriers.
+        NOCLIP		= 1,
+        // No damage, no health loss.
+        GODMODE		= 2,
+        // Not really a cheat, just a debug aid.
+        NOMOMENTUM	= 4
+    };
 
-};
+    /// <summary>
+    /// Extended player object info: player_t
+    /// </summary>
+    public class Player
+    {
+        public static int MAXPLAYERS
+        {
+            get
+            {
+                return 4;
+            }
+        }
+        MapObject	MapObject;
+        PlayerState	PlayerState;
+        //ticcmd_t		cmd;
 
-///
-/// Extended player object info: player_t
-///
-struct Player
-{
-    MapObject	mo;
-    PlayerState	playerstate;
-    //ticcmd_t		cmd;
+        // Determine POV,
+        //  including viewpoint bobbing during movement.
+        // Focal origin above r.z
+        float		ViewZ;
+        // Base height above floor for viewz.
+        float		ViewHeight;
+        // Bob/squat speed.
+        float         	DeltaViewHeight;
+        // bounded/scaled total momentum.
+        float         	Bob;	
 
-    // Determine POV,
-    //  including viewpoint bobbing during movement.
-    // Focal origin above r.z
-    float		viewz;
-    // Base height above floor for viewz.
-    float		viewheight;
-    // Bob/squat speed.
-    float         	deltaviewheight;
-    // bounded/scaled total momentum.
-    float         	bob;	
+        // This is only used between levels,
+        // mo->health is used during levels.
+        int			Health;	
+        int			ArmorPoints;
+        // Armor type is 0-2.
+        int			ArmorType;
+        
+        // Power ups. invinc and invis are tic counters.
+        int[]       Powers = new int[(int)(PowerType.NUMPOWERS)];
 
-    // This is only used between levels,
-    // mo->health is used during levels.
-    int			health;	
-    int			armorpoints;
-    // Armor type is 0-2.
-    int			armortype;	
-    /*
-    // Power ups. invinc and invis are tic counters.
-    int			powers[NUMPOWERS]
-    bool		cards[NUMCARDS];
-    bool		backpack;
-    
-    // Frags, kills of other players.
-    int			frags[MAXPLAYERS];
-    weapontype_t	readyweapon;
-    
-    // Is wp_nochange if not changing.
-    weapontype_t	pendingweapon;
+        bool[]      Cards = new bool[(int)(Card.NUMCARDS)];
+        bool		Backpack;
+     
+        // Frags, kills of other players.
 
-    bool		weaponowned[NUMWEAPONS];
-    int			ammo[NUMAMMO];
-    int			maxammo[NUMAMMO];
-    */
-    // True if button down last tic.
-    int			attackdown;
-    int			usedown;
+        int[] Frags = new int[Player.MAXPLAYERS];
+        WeaponType	ReadyWeapon;
+        
+        // Is wp_nochange if not changing.
+        WeaponType	PendingWeapon;
 
-    // Bit flags, for cheats and debug.
-    // See cheat_t, above.
-    int			cheats;		
+        bool[]		WeaponOwned = new bool[(int)(WeaponType.NUMWEAPONS)];
+        int[]		Ammo = new int[(int)(AmmoType.NUMAMMO)];
+        int[]       MaxAmmo = new int[(int)(AmmoType.NUMAMMO)];
+        // True if button down last tic.
+        int			AttackDown;
+        int			UseDown;
 
-    // Refired shots are less accurate.
-    int			refire;		
+        // Bit flags, for cheats and debug.
+        // See cheat_t, above.
+        int			Cheats;		
 
-     // For intermission stats.
-    int			killcount;
-    int			itemcount;
-    int			secretcount;
+        // Refired shots are less accurate.
+        int			Refire;		
 
-    // Hint messages.
-    string		message;	
-    
-    // For screen flashing (red or bright).
-    int			damagecount;
-    int			bonuscount;
+         // For intermission stats.
+        int			KillCount;
+        int			ItemCount;
+        int			SecretCount;
 
-    // Who did damage (NULL for floors/ceilings).
-    MapObject		attacker;
-    
-    // So gun flashes light up areas.
-    int			extralight;
+        // Hint messages.
+        string		Message;	
+        
+        // For screen flashing (red or bright).
+        int			DamageCount;
+        int			BonusCount;
 
-    // Current PLAYPAL, ???
-    //  can be set to REDCOLORMAP for pain, etc.
-    int			fixedcolormap;
+        // Who did damage (NULL for floors/ceilings).
+        MapObject		Attacker;
+        
+        // So gun flashes light up areas.
+        int			ExtraLight;
 
-    // Player skin colorshift,
-    //  0-3 for which color to draw player.
-    int			colormap;	
+        // Current PLAYPAL, ???
+        //  can be set to REDCOLORMAP for pain, etc.
+        int			FixedColorMap;
 
-    // Overlay view sprites (gun, etc).
-    //pspdef_t		psprites[NUMPSPRITES];
+        // Player skin colorshift,
+        //  0-3 for which color to draw player.
+        int			ColorMap;	
 
-    // True if secret level has been done.
-    bool		didsecret;	
+        // Overlay view sprites (gun, etc).
+        //pspdef_t		psprites[NUMPSPRITES];
 
+        // True if secret level has been done.
+        bool		DidSecret;	
+
+    }
+
+
+    //
+    // INTERMISSION
+    // Structure passed e.g. to WI_Start(wb)
+    //
+    struct WbPlayerStruct
+    {
+        bool	IsInGame;	// whether the player is in game
+        
+        // Player stats, kills, collected items etc.
+        int		Skills;
+        int		Sitems;
+        int		Ssecret;
+        int		Stime;
+        int[]   Frags;
+        int		Score;	// current score on entry, modified on return
+      
+    };
+
+    public class WbStartStruct
+    {
+        int		Espisode;	// episode # (0-2)
+
+        // if true, splash the secret level
+        bool	DidSecret;
+        
+        // previous and next levels, origin 0
+        int		Last;
+        int		Next;	
+        
+        int		MaxKills;
+        int		MaxItems;
+        int		MaxSecret;
+        int		MaxFrags;
+
+        // the par time
+        int		ParTime;
+        
+        // index of this player in game
+        int		PlayerNumber;
+
+        WbPlayerStruct[] Players = new WbPlayerStruct[Player.MAXPLAYERS];
+
+    };
 }
-
-
-//
-// INTERMISSION
-// Structure passed e.g. to WI_Start(wb)
-//
-struct WbPlayerStruct
-{
-    bool	IiInGame;	// whether the player is in game
-    
-    // Player stats, kills, collected items etc.
-    int		Skills;
-    int		Sitems;
-    int		Ssecret;
-    int		Stime; 
-    int[]	Frags;
-    int		Score;	// current score on entry, modified on return
-  
-};
-
-struct WbStartStruct
-{
-    int		epsd;	// episode # (0-2)
-
-    // if true, splash the secret level
-    bool	didsecret;
-    
-    // previous and next levels, origin 0
-    int		last;
-    int		next;	
-    
-    int		maxkills;
-    int		maxitems;
-    int		maxsecret;
-    int		maxfrags;
-
-    // the par time
-    int		partime;
-    
-    // index of this player in game
-    int		pnum;	
-
-    //WbPlayerStruct	plyr[MAXPLAYERS];
-
-};
