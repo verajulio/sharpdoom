@@ -8,7 +8,7 @@
  */
 using System;
 
-namespace Doomed
+namespace SharpDoom
 {
 	/// <summary>
 	/// Stores sommand-line paramenters

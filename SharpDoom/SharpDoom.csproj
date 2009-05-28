@@ -9,7 +9,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\Grishnackh\Dati applicazioni\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
-    <StartupObject>Doomed.MainProgram</StartupObject>
+    <StartupObject>SharpDoom.MainProgram</StartupObject>
     <ApplicationIcon>Doom-The-Ultimate-1.ico</ApplicationIcon>
     <StartArguments>-debug</StartArguments>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Doomed
+namespace SharpDoom
 {
     enum MapObjectFlags
     {
