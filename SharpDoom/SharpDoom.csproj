@@ -55,14 +55,14 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="doomdef.cs" />
     <Compile Include="d_event.cs" />
     <Compile Include="d_main.cs" />
     <Compile Include="d_player.cs" />
+    <Compile Include="d_ticcmd.cs" />
+    <Compile Include="g_game.cs" />
     <Compile Include="i_main.cs" />
     <Compile Include="m_argv.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
