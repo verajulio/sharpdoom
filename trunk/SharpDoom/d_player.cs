@@ -50,7 +50,7 @@ namespace SharpDoom
         }
         MapObject	MapObject;
         PlayerState	PlayerState;
-        //ticcmd_t		cmd;
+        TicCmd		Cmd;
 
         // Determine POV,
         //  including viewpoint bobbing during movement.
@@ -134,10 +134,10 @@ namespace SharpDoom
 
 
     //
-    // INTERMISSION
-    // Structure passed e.g. to WI_Start(wb)
-    //
-    struct WbPlayerStruct
+    /// <summary>
+    /// Structure passed e.g. to WI_Start(wb)
+    /// </summary>
+    struct WbPlayer
     {
         bool	IsInGame;	// whether the player is in game
         
@@ -151,7 +151,7 @@ namespace SharpDoom
       
     };
 
-    public class WbStartStruct
+    public class WbStart
     {
         int		Espisode;	// episode # (0-2)
 
@@ -173,7 +173,7 @@ namespace SharpDoom
         // index of this player in game
         int		PlayerNumber;
 
-        WbPlayerStruct[] Players = new WbPlayerStruct[Player.MAXPLAYERS];
+        WbPlayer[] Players = new WbPlayer[Player.MAXPLAYERS];
 
     };
 }
