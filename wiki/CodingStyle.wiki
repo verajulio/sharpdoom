@@ -1,0 +1,19 @@
+#summary Programming guidelines for SharpDoom Source Code
+
+= Introduction =
+
+This document describes the code guidelines for SharpDoom
+
+
+= Details =
+
+== Brackets ==
+
+Backets should be on a newline after the function declaration:
+
+{{{
+void func()
+*{*
+    //code here
+*}*
+}}}
